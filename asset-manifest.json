@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/todolist_ts_cicd_github/static/css/main.28817e78.css",
+    "main.js": "/todolist_ts_cicd_github/static/js/main.e443a38a.js",
+    "index.html": "/todolist_ts_cicd_github/index.html",
+    "main.28817e78.css.map": "/todolist_ts_cicd_github/static/css/main.28817e78.css.map",
+    "main.e443a38a.js.map": "/todolist_ts_cicd_github/static/js/main.e443a38a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.28817e78.css",
+    "static/js/main.e443a38a.js"
+  ]
+}
