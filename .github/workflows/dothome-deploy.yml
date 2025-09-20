@@ -2,32 +2,37 @@ name: CI/CD to Dothome
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]   # master 브랜치에 push 될 때 실행
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 깃허브 소스 체크아웃
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2. Node.js 환경 세팅
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
+      # 3. 패키지 설치
       - name: Install dependencies
         run: npm install
 
+      # 4. 프로젝트 빌드
       - name: Build project
         run: CI=false npm run build
 
-      - name: 📂 Deploy to Dothome via FTP
+      # 5. 닷홈 FTP로 배포
+      - name: Deploy to Dothome via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ftp.moonjong.dothome.co.kr
-          username: ${{ secrets.DOTHOME_FTP_USER }}
-          password: ${{ secrets.DOTHOME_FTP_PASSWORD }}
-          local-dir: ./build/      # ✅ 로컬 빌드 폴더
-          server-dir: /html/todolist_ts_cicd/    # ✅ 닷홈 업로드 폴더
+          server: ftp.dothome.co.kr               # ✅ FileZilla에서 쓰는 Host 주소와 동일해야 함
+          username: ${{ secrets.DOTHOME_FTP_USER }}   # 깃허브 시크릿에 저장한 ID
+          password: ${{ secrets.DOTHOME_FTP_PASSWORD }} # 깃허브 시크릿에 저장한 PW
+          local-dir: ./build/                     # ✅ 반드시 / 로 끝나야 함
+          server-dir: /html/todolist_ts_cicd/     # ✅ 닷홈에서 배포할 서브폴더
