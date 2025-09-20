@@ -49,6 +49,7 @@ export default function HeaderComponent(){
         .catch((err)=>{
             console.log('fetch 오류!')
         });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
 

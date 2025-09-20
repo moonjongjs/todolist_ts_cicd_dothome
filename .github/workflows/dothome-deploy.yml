@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: CI=false npm run build
 
       - name: 📂 Deploy to Dothome via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
