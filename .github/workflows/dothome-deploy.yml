@@ -29,5 +29,5 @@ jobs:
           server: ftp.moonjong.dothome.co.kr
           username: ${{ secrets.DOTHOME_FTP_USER }}
           password: ${{ secrets.DOTHOME_FTP_PASSWORD }}
-          local-dir: ./build
-          server-dir: /html/todolist_ts_cicd
+          local-dir: ./build/      # ✅ 로컬 빌드 폴더
+          server-dir: /html/todolist_ts_cicd/    # ✅ 닷홈 업로드 폴더
