@@ -1,38 +1,62 @@
-name: CI/CD to Dothome
+name: CI/CD to GitHub + Dothome
 
 on:
   push:
-    branches: ["master"]   # master 브랜치에 push 될 때 실행
+    branches: ["master"]
 
 jobs:
-  build-deploy:
+  # -------------------
+  # 1) GitHub Pages 배포
+  # -------------------
+  deploy-gh-pages:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. 깃허브 소스 체크아웃
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Node.js 환경 세팅
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3. 패키지 설치
       - name: Install dependencies
         run: npm install
 
-      # 4. 프로젝트 빌드
       - name: Build project
-        run: CI=false npm run build
+        run: npm run build
 
-      # 5. 닷홈 FTP로 배포
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+
+  # -------------------
+  # 2) 닷홈 FTP 배포
+  # -------------------
+  deploy-dothome:
+    runs-on: ubuntu-latest
+    needs: deploy-gh-pages   # 🔑 GitHub Pages 먼저 실행 후 닷홈 배포
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
       - name: Deploy to Dothome via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: moonjong.dothome.co.kr             # ✅ FileZilla에서 쓰는 Host 주소와 동일해야 함
-          username: ${{ secrets.DOTHOME_FTP_USER }}   # 깃허브 시크릿에 저장한 ID
-          password: ${{ secrets.DOTHOME_FTP_PASSWORD }} # 깃허브 시크릿에 저장한 PW
-          local-dir: ./build/                     # ✅ 반드시 / 로 끝나야 함
-          server-dir: /html/todolist_ts_cicd/     # ✅ 닷홈에서 배포할 서브폴더
+          server: moonjong.dothome.co.kr
+          username: ${{ secrets.DOTHOME_FTP_USER }}
+          password: ${{ secrets.DOTHOME_FTP_PASSWORD }}
+          local-dir: ./build/
+          server-dir: ./todolist_ts_cicd/
