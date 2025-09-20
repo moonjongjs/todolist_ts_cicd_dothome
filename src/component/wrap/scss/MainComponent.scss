@@ -1,0 +1,942 @@
+#main {
+    background: #f9f9f9;
+    background: #fff;    
+    display: block;
+    user-select: none;
+    .container {      
+        width: 100%;
+        max-width: 90%;
+        margin: 20px auto;
+        .title {
+            width: 100%;
+            padding: 10px 0 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);                
+            h2 {
+                svg {
+                    margin-right: 5px;
+                }
+                width: 100%;
+                font-size: 32px;
+                font-weight: 300;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                color: #555;
+            }
+            @media all and (max-width: 1400px) {
+                h2 {
+                    font-size: 32px;
+                }
+            }
+
+            h3 {
+                padding-top: 10px;
+                width: 100%;
+                font-size: 17px;
+                font-weight: 300;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                color: #666;
+                i {
+                    margin: 0 10px 0 5px;
+                }
+            }
+        }
+        .content {
+            width: 100%;
+            background: #fff;
+            // height: 620px;
+            padding: 0 0 50px 0;
+
+
+            // 할일 입력 상자 박스 
+            .input-container{
+                padding: 50px;
+                position: relative;
+
+                // 입력 상자
+                input[type='text'] {
+                    width: 100%;
+                    height: 60px;
+                    border: 1px solid #aaa;
+                    border-radius: 5px;
+                    font-size: 17px;
+                    font-weight: normal;
+                    color: #333;
+                    background: #f9f9f9;
+                    padding: 0 20px;
+                    outline-offset: -1px;
+                    outline: 1px solid transparent;
+                    transition: all 0.3s;
+
+                    
+                    &:focus {
+                        outline: 1px solid #333;
+                    }
+                    &::placeholder {
+                        color:#bbb;
+                    }
+                }
+
+                // 날짜 시간                
+                .datetime-local {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -29px;
+                    right: 150px;
+                    width: auto;
+                    height: 58px;
+                    border: 0;
+                    flex: 1; /* 날짜 입력창은 짧게 */
+                    padding: 10px;
+                    border-radius: 6px;
+                    font-size: 17px;
+                    color: #333;
+                    background: transparent;
+                    &:focus {
+                        outline: 0;
+                    }
+                }
+
+                
+                // 저장 버튼
+                button[type='button'] {
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -29px;
+                    right: 51px;
+                    width: 60px;
+                    height: 58px;
+                    border: 0;
+                    background: rgba(0,0,0, 0.7);
+                    cursor: pointer;    
+                    color: #fff;
+                    transition: all 0.6s;
+                    i {
+                        font-size: 30px;
+                    }
+                    &:hover {
+                        background: rgba(0,0,0, 1);
+                    }              
+                }
+            }
+
+            @media all and (max-width: 1400px) {
+                .input-container{
+                    padding: 30px 0;
+                    .datetime-local {
+                       right: 70px;
+                    }
+                    button[type='button'] {
+                        position: absolute;
+                        right: 0;
+                        transition: all 0S;
+                    }
+                }
+            }
+
+            @media all and (max-width: 991px) {
+                .input-container{                    
+                     .datetime-local {
+                        width: 150px;                        
+                     }
+                }
+            }
+            @media all and (max-width: 600px) {
+                .input-container{
+                    padding: 30px 0;
+                     .datetime-local {
+                        width: 80px;
+                        right: 70px;
+                     }
+                }
+            }
+
+            // 필터 검색 및 정렬 버튼 및 출력 상자 박스
+            .todo-list-box {                
+                width: auto;
+                height: auto;
+                background: #fff;
+                // 필터 검색 박스
+                .search-box {
+                    width: auto;
+                    margin: 0 50px;
+                    background: rgba(0,20,20, 0.05);
+                    padding: 30px 50px;
+                    display: flex;
+                    font-size: 15px;
+                    div.select1 {
+                        position: relative;    
+                        background: #fff;
+                        border-radius: 5px;
+                        margin-right: 10px;
+                        select {    
+                            z-index: 2;
+                            position: relative;                        
+                            width: auto;
+                            padding: 0 40px 0 20px;
+                            font-size: 15px;
+                            height: 45px;                     
+                            border-radius: 5px;
+                            color: #333;
+                            appearance: none;
+                            text-align: left;                             
+                            background: transparent;  
+                            align-items: center;    
+                            cursor: pointer;     
+                            outline-offset: -1px;
+                            outline: 1px solid transparent;         
+                            transition: all 0.3s;
+                            border: 1px solid #ccc;
+                            &:focus {
+                                outline-color: #777;
+                            }
+                            &:nth-child(2){
+                                width: 130px;
+                            }                                                       
+                        }
+                        &::before {
+                            content: "\F282"; // bootstrap-icons unicode (bi-search)
+                            font-family: "bootstrap-icons"; 
+                            z-index: 1;
+                            position: absolute;
+                            right: 20px;
+                            top: 50%;
+                            transform: translateY(-5px);
+                            color: #666;
+                            font-size: 14px;  
+                            text-align: left;                                             
+                        }
+                    }
+                    
+
+                    // 필터 검색 입력창
+                    input {
+                        font-size: 16px;
+                        font-weight: normal;
+                        width: 400px;
+                        height: 45px;
+                        margin-right: 15px;
+                        padding: 0 20px;
+                        border-radius: 5px;
+                        border: 1px solid #ccc;
+                        color: #333;
+                        outline-offset: -1px;
+                        outline: 1px solid transparent;         
+                        transition: all 0.3s;
+                        &:focus {
+                            outline-color: #333;
+                        }
+                    }
+                    
+                    // 필터 검색 버튼
+                    button {
+                        height: 45px;
+                        padding: 0 25px;
+                        border-radius: 5px;
+                        border: 1px solid #e00;
+                        background: #fef1f1;
+                        color: #e00;
+                        font-size: 15px;
+                        cursor: pointer;
+                        transition: all 0.3s;
+                        outline-offset: -1px;
+                        i {
+                            display: inline-flex;
+                            font-size: 15px;
+                            transform: translateY(1px);
+                        }
+                        &:hover {
+                            background: #ecc;
+                        }
+                    }
+
+                    // 필터 초기화 버튼
+                    button.reset-btn {
+                        border: 1px solid #aaa;
+                        background: #fff;
+                        color: #444;
+                        i {
+                            display: inline-flex;
+                            margin-right: 2px;
+                            color: #444;
+                            transform: translateY(-1px);
+                            font-size: 15px;
+                        }
+                        &:hover {
+                            background: #f0f0f0;
+                        }
+                    }
+
+                    .sort-group{
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        margin: 0 0 0 auto; /* 검색 버튼과 간격 */
+                        background: none; 
+                        height: 45px;                       
+                        .sort-label {
+                            height: 100%;
+                            margin-left: 20px;
+                            font-size: 0.9rem;
+                            color: #666;
+                            margin-right: 6px;
+                            display: inline-flex;
+                            align-items: center;
+                            font-size: 0.85rem;
+                            color: #666;                            
+                            i {
+                                font-size: 20px;
+                                margin-right: 5px;
+                                color: #e00; /* 강조 줄이기 */
+                                margin-right: 2px;
+                            }
+                        }
+
+                        .select1 {
+                            height: 45px;
+                            width: 200px;                           
+                            border-radius: 6px;  
+                            background: #fff;                          
+                            margin:0;
+                            select {
+                                width: 100%;
+                                height: 100%;
+                                border: 1px solid #ccc;
+                                background: transparent;
+                                margin:0;
+                            }
+                            &:focus {
+                                border-color: #777;
+                                outline: none;
+                                box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);                            
+                            }
+                        }
+                    }
+                }
+
+
+                // 아이콘 할일 완료 만료 오늘 미래 삭제 아이콘 
+                .count-box{
+                    width: 100%;
+                    font-size: 16px;
+                    padding: 20px 50px 10px 50px;
+                    display: flex;
+                    justify-content: space-between;                    
+                    span{
+                        color: #444;
+                        font-size: 14px;
+                        font-weight: 300;
+                        span{
+                            .icon1 {color: #c33;margin-left: 10px;}
+                            .icon2 {color: orange;margin-left: 10px;}
+                            .icon3 {color: #393;margin-left: 10px;}
+                        }
+                        em {
+                            color: #c33;
+                        }
+                        button {
+                            margin-left: 10px;
+                            padding: 2px 10px;                            
+                            border-radius: 5px;
+                            border: 1px solid #ccc;
+                            background: transparent;
+                            color: #c33;
+                            font-size: 14px;
+                            cursor: pointer;
+                            transition: all 0.3s;   
+                        }       
+                    }
+                }
+
+
+                // 할일 목록 리스트 박스
+                ul {
+                    width: calc(100% - 50px - 50px);
+                    height: auto;
+                    margin: 0 50px;
+                    li {
+                        width: 100%;
+                        border-bottom: 1px solid #eee;
+                        &:nth-child(odd){
+                            background: #fafafa;
+                        }
+                        &:hover {
+                            background: rgba(100,30,50, 0.05);
+                        }
+                        .gap {
+                            width: 100%;
+                            height: 42px;
+                            padding: 10px 30px 10px 50px;
+                            position: relative;
+                            
+                            h2 {
+                                padding: 70px 0;
+                                text-align: center;
+                                font-size: 16px;
+                                font-weight: 400;
+                                color: #666;
+                            }
+                            // 할일 / 완료 체크박스
+                            input[type='checkbox']{
+                                width: 20px;
+                                height: 20px;
+                                border: 1px solid #ddd;
+                                position: absolute;
+                                left: 10px;
+                                top: 50%;
+                                margin-top: -10px;
+                            }
+                            div {
+                                // 할일
+                                // 입력 상자
+                                position: relative;
+                                input[type='text'] {
+                                    z-index: 1;
+                                    position: relative;
+                                    width: calc(100% - 50px);
+                                    height: 44px;
+                                    border: 1px solid #c33;
+                                    border-radius: 5px;
+                                    font-size: 16px;
+                                    color: #333;
+                                    background: #fff5f5; /* 옅은 빨강 배경 */
+                                    padding: 0 20px;
+                                    outline-offset: -1px;
+                                    outline: 1px solid transparent;
+                                    transition: all 0.3s;
+                                    &:focus {
+                                        outline: 1px solid #c33;
+                                    }
+                                    &::placeholder {
+                                        color:#bbb;
+                                    }
+                                }
+
+                                 // 날짜 시간                
+                                .datetime-local {
+                                    z-index: 2;
+                                    cursor: pointer;
+                                    position: absolute;
+                                    top: 50%;
+                                    margin-top: -29px;
+                                    right: 70px;
+                                    width: auto;
+                                    height: 58px;
+                                    border: 0;
+                                    flex: 1; /* 날짜 입력창은 짧게 */
+                                    padding: 10px;
+                                    border-radius: 6px;
+                                    font-size: 17px;
+                                    color: #333;
+                                    background: transparent;
+                                    &:focus {
+                                        outline: 0;
+                                    }
+                                }
+
+
+                            }
+                            em {   
+                                display: flex;    
+                                height: 100%;
+                                align-items: center;
+                                a {
+                                    display: block;
+                                    width: calc(90% - 120px);
+                                    // padding: 12px 0 8px 0;
+                                    font-size: 14px;
+                                    color: #444;
+                                    white-space: nowrap;
+                                    // white-space: wrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    font-weight: 400;
+                                    &.on {
+                                        text-decoration: line-through;
+                                        color: #aaa;
+                                    }
+                                    &.red {
+                                        color: #c00;
+                                    }
+                                }
+                                strong {
+                                    margin-right: 15px;
+                                    font-weight: normal;
+                                    &:nth-child(2){
+                                        width: 53px;
+                                        i {
+                                            font-weight: 500;
+                                        }
+                                    }
+                                }
+                            }
+
+                            span {
+                                position: absolute;
+                                right: 10px;
+                                top: 0;
+                                width: auto;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;                                
+                            // 삭제버튼
+                                button {
+                                    width: auto;
+                                    height: 25px;
+                                    border: 0;
+                                    background: none;                                    
+                                    color: #777;
+                                    font-size: 17px;
+                                    cursor: pointer;
+                                    transition: all 0.3s;
+                                    &.edit {
+                                        margin-right: 10px;
+                                        .red {
+                                            color: #c00;
+                                        }
+                                    }
+                                    &:hover {
+                                        color: #c00;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.head {
+                            width: 100%;
+                            height: 48px;
+                            border-top: 1px solid #aaa;
+                            border-bottom: 1px solid #aaa;
+                            background: rgba(0,70,50, 0.05); 
+                            .gap{
+                                width: 100%;
+                                height: 45px;
+                                display: flex;
+                                justify-content: flex-start;
+                                align-items: center;
+                                padding: 0;
+                                margin: 0;
+                                position: relative;
+                                span {
+                                    display: inline-flex;
+                                    position: relative;                                   
+                                    left: 0;
+                                    font-size: 14px;
+                                    color: #111;
+                                    font-weight: 500;
+                                    &:nth-child(1){
+                                        width: 40px;
+                                        justify-content: flex-start;
+                                        margin-right: 10px;
+                                        padding-left: 7px;
+                                    }
+                                    &:nth-child(2){
+                                        width: 115px;
+                                        justify-content: flex-start;
+                                        margin-right: 10px;
+                                    }
+                                    &:nth-child(3){
+                                        width: 50px;
+                                        justify-content: flex-start;
+                                        margin-right: 20px;                                        
+                                    }
+                                    &:nth-child(4){
+                                        width: auto;
+                                        justify-content: flex-start;
+                                        margin-right: 20px;    
+                                    }
+                                    &:nth-child(5){                                        
+                                        position: absolute;
+                                        left: calc(100% - 65px);
+                                        top: 0;
+                                        width: 30px;
+                                    }
+                                    &:nth-child(6){
+                                        margin: 0 5px 0 auto;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+                // 선택 삭제 버튼 박스
+                .foot-button-box{
+                    width: 100%;
+                    padding: 10px 50px 0 50px;
+                    button {
+                        padding: 8px 15px;
+                        border-radius: 5px;
+                        border: 1px solid transparent;
+                        background: transparent;
+                        color: transparent;
+                        font-size: 14px;
+                        cursor: pointer;  
+                        transform: scale(0);                        
+                        transition: all 0.3s;                         
+                        &.on {                             
+                            background: #fff;
+                            color: #444;
+                            border: 1px solid #aaa;
+                            transform: scale(1);
+                        }
+                        &:hover {
+                            background: #000;
+                            color: #fff;
+                        }
+                    }
+                }
+
+               
+            }
+
+            @media all and (max-width:1400px) {
+                .todo-list-box {                
+                    background: none;
+                    .search-box {
+                        padding-bottom: 60px;
+                        display: block;
+                        background: #fff;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        margin: 0;                    
+                        padding: 10px 10px 40px 10px;
+                        div {                            
+                            background: none;
+                            width: 100%;
+                            label.sort-label {
+                                display: none;
+                            }
+                            select {                                
+                                width: 100%;
+                                min-width: 100%;
+                                max-width: 100%;
+                                margin: 0 15px 10px 0;                       
+                            }
+                            &::before {
+                                right: 20px;               
+                            }
+                        }                        
+
+                        // 필터 검색 입력창
+                        input {
+                            width: calc(100% - 115px);
+                        }
+                        
+                        // 필터 검색 버튼
+                        button {
+                            margin: 0 0 0 auto;
+                        }
+
+                        .sort-group{
+                            width: 100%;
+                            margin: 0 0 0 auto;
+                            display: block;
+                            .sort-label {
+                                width: 60px;
+                                margin-left: 5px;
+                                height: auto;
+                                margin-top: 10px;
+                                i {
+                                    font-size: 20px;
+                                    margin-right: 5px;
+                                    color: #e00; /* 강조 줄이기 */
+                                    margin-right: 2px;
+                                }
+                            }
+
+                            .select1 {
+                                width: 100%;
+                                select {
+                                    width: 100%;
+                                    height: 100%;
+                                    border: 1px solid #ccc;
+                                    background: transparent;
+                                    margin:0;
+                                }
+                                &:focus {
+                                    border-color: #777;
+                                    outline: none;
+                                    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);                            
+                                }
+                            }
+                        }
+                    }
+
+
+                    // 아이콘 할일 완료 만료 오늘 미래 삭제 아이콘 
+                    .count-box{
+                        padding: 20px 5px 10px 5px;
+                        span{
+                        color: #444;
+                        font-size: 14px;
+                        font-weight: 300;
+                        span {
+                            display: none;                            
+                            }
+                        }
+                    }
+
+                    // 할일 목록 리스트 박스
+                    ul {
+                        width: calc(100% - 0px - 0px);
+                        height: auto;
+                        margin: 0;
+                        li {
+                            &.head {
+                                .gap{
+                                    span {
+                                        &:nth-child(1){
+                                            width: 40px;
+                                            justify-content: flex-start;
+                                            margin-right: 10px;
+                                            padding-left: 7px;
+                                        }
+                                        &:nth-child(2){
+                                            width: 115px;
+                                            justify-content: flex-start;
+                                            margin-right: 10px;
+                                        }
+                                        &:nth-child(3){
+                                            width: 50px;
+                                            justify-content: flex-start;
+                                            margin-right: 20px;                                        
+                                        }
+                                        &:nth-child(4){
+                                            width: auto;
+                                            justify-content: flex-start;
+                                            margin-right: 20px;    
+                                        }
+                                        &:nth-child(5){                                        
+                                            position: absolute;
+                                            left: calc(100% - 65px);
+                                            top: 0;
+                                            width: 30px;
+                                        }
+                                        &:nth-child(6){
+                                            margin: 0 5px 0 auto;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // 선택 삭제 버튼 박스
+                    .foot-button-box{
+                        width: 100%;
+                        padding: 10px 0;
+                    }
+                }
+            }
+            @media all and (max-width:600px) {
+                .todo-list-box {                
+                    // 할일 목록 리스트 박스
+                    ul {
+                        li {
+                            .gap {
+
+                                div {
+                                    // 할일
+                                    // 입력 상자
+                                    position: relative;
+                                    input[type='text'] {
+                                        z-index: 1;
+                                        position: relative;
+                                        width: calc(100% - 50px);
+                                        height: 44px;
+                                        border: 1px solid #c33;
+                                        border-radius: 5px;
+                                        font-size: 16px;
+                                        color: #333;
+                                        background: #fff5f5; /* 옅은 빨강 배경 */
+                                        padding: 0 20px;
+                                        outline-offset: -1px;
+                                        outline: 1px solid transparent;
+                                        transition: all 0.3s;
+                                        &:focus {
+                                            outline: 1px solid #c33;
+                                        }
+                                        &::placeholder {
+                                            color:#bbb;
+                                        }
+                                    }
+
+                                    // 날짜 시간                
+                                    .datetime-local {
+                                        z-index: 2;
+                                        cursor: pointer;
+                                        position: absolute;
+                                        top: 50%;
+                                        margin-top: -29px;
+                                        right: 70px;
+                                        width: auto;
+                                        height: 58px;
+                                        border: 0;
+                                        flex: 1; /* 날짜 입력창은 짧게 */
+                                        padding: 10px;
+                                        border-radius: 6px;
+                                        font-size: 17px;
+                                        color: #333;
+                                        background: transparent;
+                                        &:focus {
+                                            outline: 0;
+                                        }
+                                    }
+
+
+                                }
+                                em {   
+                                    display: flex;    
+                                    height: 100%;
+                                    align-items: center;
+                                    a {
+                                        display: block;
+                                        width: calc(90% - 120px);
+                                        // padding: 12px 0 8px 0;
+                                        font-size: 14px;
+                                        color: #444;
+                                        white-space: nowrap;
+                                        // white-space: wrap;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        font-weight: 400;
+                                        &.on {
+                                            text-decoration: line-through;
+                                            color: #aaa;
+                                        }
+                                        &.red {
+                                            color: #c00;
+                                        }
+                                    }
+                                    strong {                                        
+                                        &:nth-child(1){
+                                            display: none;
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.head {
+                                .gap{
+                                    span {
+                                        &:nth-child(1){
+                                            width: 40px;
+                                            justify-content: flex-start;
+                                            margin-right: 10px;
+                                            padding-left: 7px;
+                                        }
+                                        &:nth-child(2){
+                                            display: none;
+                                        }
+                                        &:nth-child(3){
+                                            width: 50px;
+                                            justify-content: flex-start;
+                                            margin-right: 20px;                                        
+                                        }
+                                        &:nth-child(4){
+                                            width: auto;
+                                            justify-content: flex-start;
+                                            margin-right: 20px;    
+                                        }
+                                        &:nth-child(5){                                        
+                                            position: absolute;
+                                            left: calc(100% - 65px);
+                                            top: 0;
+                                            width: 30px;
+                                        }
+                                        &:nth-child(6){
+                                            margin: 0 5px 0 auto;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // 선택 삭제 버튼 박스
+                    .foot-button-box{
+                        width: 100%;
+                        padding: 10px 0;
+                    }
+                }
+            }
+
+            
+
+            // 페이지 네이션 박스
+            .pagenation-box{
+                width: 100%;  
+                display: flex;
+                justify-content: center;
+                padding-top: 20px;
+                ul {
+                    width: auto;
+                    display: flex;
+                    li {
+                    width: auto;
+                    padding: 0;
+                    margin: 0;
+                    a {
+                        margin: 0 2px;
+                        font-size: 14px;
+                        color: #444;
+                        display: flex;
+                        width: 42px;
+                        height: 40px;
+                        border: 1px solid #999;
+                        justify-content: center;
+                        align-items: center;
+                        transition: all 0.3s;
+                        background: #fff;
+                        &:hover {
+                            border: 1px solid #000;
+                            color: #000;
+                        }  
+                        &.on{
+                            background: #232323;
+                            color: #fff;
+                        }
+                        }
+                    }
+                }
+                button{
+                    margin: 0 2px;
+                    font-size: 14px;
+                    color: #444;
+                    width: 42px;
+                    height: 40px;
+                    border: 1px solid #999;
+                    transition: all 0.3s;
+                    background: #fff;
+                    &.icon1 {
+                        font-size: 21px;
+                    }
+                    &.icon2 {
+                        font-size: 16px;
+                    }
+                    &:hover {
+                        border: 1px solid #000;
+                        color: #000;
+                    }  
+                    &.on{
+                        background: #232323;
+                        color: #fff;
+                    }
+                }
+            }
+
+        }        
+    }
+    @media all and (max-width: 1400px) {
+        .container {                   
+            max-width: 100%; 
+            padding: 0 10px;
+        }
+    }
+}

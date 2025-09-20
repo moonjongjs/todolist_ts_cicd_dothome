@@ -1,0 +1,33 @@
+name: CI/CD to Dothome
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: 📂 Deploy to Dothome via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.moonjong.dothome.co.kr
+          username: ${{ secrets.DOTHOME_FTP_USER }}
+          password: ${{ secrets.DOTHOME_FTP_PASSWORD }}
+          local-dir: ./build
+          server-dir: /html/todolist_ts_cicd

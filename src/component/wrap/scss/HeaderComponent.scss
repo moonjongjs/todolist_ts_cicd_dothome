@@ -1,0 +1,82 @@
+#header {
+    width: 100%;
+    height: 200px;  
+    min-height: 200px;
+    /* 메인슬라이드 */
+    .slide-container {
+        width:100%;
+        height:100%;
+        min-height: 100%;
+        position: relative;
+        z-index: 1;
+        .slide-view {
+            width:100%;
+            height:100%;
+            min-height: 100%;
+            overflow: hidden;
+            .slide-wrap {
+                width:100% * 5;
+                height:100%; 
+                min-height: 100%;                 
+                display: flex;
+                margin-left: -100%;
+                position: relative;
+                // 우측에서 좌측으로 부드럽게 이동
+                left: -100% * 0;  /* 테스팅 count=0 첫번째 슬라이드 */
+                left: -100% * 1;  /* 테스팅 count=1 두번째 슬라이드 */
+                left: -100% * 2;  /* 테스팅 count=2 세번째 슬라이드 */
+                left: -100% * 3;  /* 테스팅 count=3 첫번째 슬라이드 리턴 */
+                left: -100% * 0;  /* 테스팅 count=3 첫번째 슬라이드 리턴결과   */
+                .slide {
+                    width:100%;
+                    height:100%;
+                    min-height: 100%;
+                    a {
+                        position: relative;
+                        display: block;
+                        width:100%;
+                        height: 100%;
+                        min-height: 100%;
+                        img {
+                            width:100%;
+                            height:100%;
+                            min-height: 100%;
+                            object-fit: cover;
+                            -webkit-object-fit: cover;                                                        
+                            z-index: 1;
+                            position: relative;
+                        }
+                        h2 {
+                            font-size: 28px;
+                            font-weight: 500;
+                            background: rgba(90,150,40, 0.7);
+                            color:rgba(255,255,255, 1);
+                            position: absolute;
+                            top: 50%;
+                            right: 50%;
+                            z-index: 2;
+                            padding: 10px 30px 10px 30px;                            
+                            border-radius: 5px;
+                            margin-top:-30px;
+                            margin-right: calc(-185px / 2);
+                            &::after {
+                                content: "";
+                                position: absolute;
+                                top: 0; left: 0;
+                                width: 100%; height: 100%;
+                                background: rgba(0,0,0,0.3);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 1400px) {
+    #header {
+        height: 150px;  
+        min-height: 150px;
+    }
+}
