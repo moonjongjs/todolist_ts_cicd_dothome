@@ -35,4 +35,4 @@ jobs:
           username: ${{ secrets.DOTHOME_FTP_USER }}   # 깃허브 시크릿에 저장한 ID
           password: ${{ secrets.DOTHOME_FTP_PASSWORD }} # 깃허브 시크릿에 저장한 PW
           local-dir: ./build/                     # ✅ 반드시 / 로 끝나야 함
-          server-dir: /html/todolist_ts_cicd/     # ✅ 닷홈에서 배포할 서브폴더
+          server-dir: ./todolist_ts_cicd/     # ✅ 닷홈에서 배포할 서브폴더
